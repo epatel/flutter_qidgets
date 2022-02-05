@@ -1,5 +1,5 @@
 
-Build widgets hierarchies quickly with qidgets.
+Build widgets hierarchies quickly with qidgets. Quick widgets → qidgets.
 
 ## Features
 
