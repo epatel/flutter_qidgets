@@ -61,6 +61,8 @@ extension QuickPaddingWidgets on Widget {
   Widget get extraLargePadding => Padding(padding: EdgeInsets.all(_extraLargePaddingValue), child: this);
   Widget get wide => SizedBox(width: double.infinity, child: this);
   Widget get tall => SizedBox(height: double.infinity, child: this);
+  Widget get width25 => FractionallySizedBox(widthFactor: 0.25, child: this);
+  Widget get width33 => FractionallySizedBox(widthFactor: 0.33, child: this);
   Widget get width50 => FractionallySizedBox(widthFactor: 0.5, child: this);
   Widget get width66 => FractionallySizedBox(widthFactor: 0.66, child: this);
   Widget get width75 => FractionallySizedBox(widthFactor: 0.75, child: this);
