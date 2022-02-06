@@ -128,6 +128,33 @@ extension QuickWidgetList on List<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
 }
 
+extension QuickWidgetIterable on Iterable<Widget> {
+  Row get row => Row(children: toList());
+  Row get rowSpread => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Row get rowCentered => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
+  Row get rowEnd => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
+  Row get rowMin => Row(children: toList(), mainAxisSize: MainAxisSize.min);
+  Row get rowMax => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Column get column => Column(children: toList());
+  Column get columnSpread => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Column get columnCentered => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
+  Column get columnEnd => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
+  Column get columnMin => Column(children: toList(), mainAxisSize: MainAxisSize.min);
+  ListView get listView => ListView(children: toList());
+  GridView grid(int columns, double aspectRatio) =>
+      GridView.count(crossAxisCount: columns, childAspectRatio: aspectRatio, children: toList());
+  Widget get rowColumn => OrientationBuilder(
+      builder: (context, orientation) => (orientation == Orientation.landscape)
+          ? Row(children: toList(), crossAxisAlignment: CrossAxisAlignment.start)
+          : column);
+  Widget get rowColumnCentered => OrientationBuilder(
+      builder: (context, orientation) => (orientation == Orientation.landscape) ? rowCentered : columnCentered);
+  Widget get rowColumnEnd => OrientationBuilder(
+      builder: (context, orientation) => (orientation == Orientation.landscape) ? rowEnd : columnEnd);
+  Widget get rowColumnEn => OrientationBuilder(
+      builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
+}
+
 extension QuickContainerWidgets on Widget {
   Widget get red => Container(color: Colors.red, child: this);
   Widget get green => Container(color: Colors.green, child: this);
