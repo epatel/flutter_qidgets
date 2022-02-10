@@ -290,9 +290,12 @@ extension QuickIcons on IconData {
 extension QuickTextWidgets on String {
   /// Wrap a string with a Text widget
   Widget get wText => Text(this);
-  Widget get wText25 => Text(this, textScaleFactor: 1.25);
-  Widget get wText50 => Text(this, textScaleFactor: 1.5);
-  Widget get wText100 => Text(this, textScaleFactor: 2.0);
+  Widget get wText50 => Text(this, textScaleFactor: 0.5);
+  Widget get wText75 => Text(this, textScaleFactor: 0.75);
+  Widget get wText100 => Text(this, textScaleFactor: 1.0);
+  Widget get wText125 => Text(this, textScaleFactor: 1.25);
+  Widget get wText150 => Text(this, textScaleFactor: 1.5);
+  Widget get wText200 => Text(this, textScaleFactor: 2.0);
 
   Text wHeadline1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline1, maxLines: maxLines);
   Text wHeadline2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline2, maxLines: maxLines);
