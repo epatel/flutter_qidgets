@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -289,13 +290,19 @@ extension QuickIcons on IconData {
 
 extension QuickTextWidgets on String {
   /// Wrap a string with a Text widget
-  Widget get wText => Text(this);
   Widget get wText50 => Text(this, textScaleFactor: 0.5);
   Widget get wText75 => Text(this, textScaleFactor: 0.75);
-  Widget get wText100 => Text(this, textScaleFactor: 1.0);
+  Widget get wText => Text(this);
   Widget get wText125 => Text(this, textScaleFactor: 1.25);
   Widget get wText150 => Text(this, textScaleFactor: 1.5);
   Widget get wText200 => Text(this, textScaleFactor: 2.0);
+
+  Widget get wText50Mono => Text(this, textScaleFactor: 0.5, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wText75Mono => Text(this, textScaleFactor: 0.75, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wTextMono => Text(this, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wText125Mono => Text(this, textScaleFactor: 1.25, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wText150Mono => Text(this, textScaleFactor: 1.5, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wText200Mono => Text(this, textScaleFactor: 2.0, style: TextStyle(fontFamily: 'Courier'));
 
   Text wHeadline1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline1, maxLines: maxLines);
   Text wHeadline2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline2, maxLines: maxLines);
@@ -354,3 +361,12 @@ extension QuickTextWidgets on String {
 Widget quickSmallFiller() => SizedBox(width: _smallPaddingValue, height: _smallPaddingValue);
 Widget quickMediumFiller() => SizedBox(width: _mediumPaddingValue, height: _mediumPaddingValue);
 Widget quickLargeFiller() => SizedBox(width: _largePaddingValue, height: _largePaddingValue);
+
+const Duration quickDuration1sec = Duration(seconds: 1);
+const Duration quickDuration2sec = Duration(seconds: 2);
+const Duration quickDuration5sec = Duration(seconds: 5);
+const Duration quickDuration10sec = Duration(seconds: 10);
+const Duration quickDuration100ms = Duration(milliseconds: 100);
+const Duration quickDuration200ms = Duration(milliseconds: 200);
+const Duration quickDuration400ms = Duration(milliseconds: 400);
+const Duration quickDuration800ms = Duration(milliseconds: 800);
