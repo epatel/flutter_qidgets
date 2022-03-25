@@ -125,8 +125,9 @@ extension QuickWidgetList on List<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowCentered : columnCentered);
   Widget get rowColumnEnd => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowEnd : columnEnd);
-  Widget get rowColumnEn => OrientationBuilder(
+  Widget get rowColumnMin => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
+  Stack get stack => Stack(children: this);
 }
 
 extension QuickWidgetIterable on Iterable<Widget> {
@@ -152,8 +153,9 @@ extension QuickWidgetIterable on Iterable<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowCentered : columnCentered);
   Widget get rowColumnEnd => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowEnd : columnEnd);
-  Widget get rowColumnEn => OrientationBuilder(
+  Widget get rowColumnMin => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
+  Stack get stack => Stack(children: toList());
 }
 
 extension QuickContainerWidgets on Widget {
@@ -279,6 +281,26 @@ extension QuickIcons on IconData {
 
   IconData get lightblue {
     _iconColor = Colors.lightBlue[200];
+    return this;
+  }
+
+  IconData get orange {
+    _iconColor = Colors.orange;
+    return this;
+  }
+
+  IconData get pink {
+    _iconColor = Colors.pink;
+    return this;
+  }
+
+  IconData get purple {
+    _iconColor = Colors.purple;
+    return this;
+  }
+
+  IconData get amber {
+    _iconColor = Colors.amber;
     return this;
   }
 
