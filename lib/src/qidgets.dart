@@ -68,6 +68,7 @@ extension QuickPaddingWidgets on Widget {
   Widget get width66 => FractionallySizedBox(widthFactor: 0.66, child: this);
   Widget get width75 => FractionallySizedBox(widthFactor: 0.75, child: this);
   Widget get safeArea => SafeArea(child: this);
+  Widget scale(double factor) => Transform(transform: Matrix4.diagonal3Values(factor, factor, factor), child: this);
 }
 
 extension QuickWidgets on Widget {
