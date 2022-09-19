@@ -208,6 +208,7 @@ extension QuickContainerWidgets on Widget {
   Widget get alignBC => Align(alignment: Alignment.bottomCenter, child: this);
   Widget get alignBR => Align(alignment: Alignment.bottomRight, child: this);
   Widget get alignC => Align(alignment: Alignment.center, child: this);
+  Widget ignore(bool ignore) => IgnorePointer(ignoring: ignore, child: this);
   Widget absorb(bool absorb) => AbsorbPointer(absorbing: absorb, child: this);
   Widget opacity(double opacity) => Opacity(opacity: opacity, child: this);
 }
