@@ -408,3 +408,17 @@ const Duration quickDuration5sec = Duration(seconds: 5);
 const Duration quickDuration10sec = Duration(seconds: 10);
 const Duration quickDuration20sec = Duration(seconds: 20);
 const Duration quickDuration30sec = Duration(seconds: 30);
+
+extension Retries on Function {
+  void retry({int retries = 4, bool escalate = true}) {
+    while (retries > 0) {
+      try {
+        this();
+        return;
+      } catch (_) {
+        retries--;
+        if (escalate && retries == 0) rethrow;
+      }
+    }
+  }
+}
