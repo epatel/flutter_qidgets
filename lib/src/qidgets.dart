@@ -68,7 +68,6 @@ extension QuickPaddingWidgets on Widget {
   Widget get width66 => FractionallySizedBox(widthFactor: 0.66, child: this);
   Widget get width75 => FractionallySizedBox(widthFactor: 0.75, child: this);
   Widget get safeArea => SafeArea(child: this);
-  Widget scale(double factor) => Transform(transform: Matrix4.diagonal3Values(factor, factor, factor), child: this);
 }
 
 extension QuickWidgets on Widget {
@@ -84,6 +83,7 @@ extension QuickWidgets on Widget {
   Widget get rotatedCW90 => Transform.rotate(angle: pi / 2, child: this);
   Widget get rotatedCCW90 => Transform.rotate(angle: -pi / 2, child: this);
   Widget get rotated180 => Transform.rotate(angle: pi, child: this);
+  Widget scale(double factor) => Transform(transform: Matrix4.diagonal3Values(factor, factor, factor), child: this);
   Widget future(Future future) => FutureBuilder(
       future: future,
       builder: (context, snapshot) => snapshot.connectionState == ConnectionState.done ? this : Container());
@@ -410,7 +410,7 @@ const Duration quickDuration20sec = Duration(seconds: 20);
 const Duration quickDuration30sec = Duration(seconds: 30);
 
 extension Retries on Function {
-  void retry({int retries = 4, bool escalate = true}) {
+  void retry({int retries = 4, bool escalate = true, void Function()? onRetry}) {
     while (retries > 0) {
       try {
         this();
@@ -418,6 +418,7 @@ extension Retries on Function {
       } catch (_) {
         retries--;
         if (escalate && retries == 0) rethrow;
+        onRetry?.call();
       }
     }
   }
