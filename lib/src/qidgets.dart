@@ -134,12 +134,14 @@ extension QuickWidgetList on List<Widget> {
 extension QuickWidgetIterable on Iterable<Widget> {
   Row get row => Row(children: toList());
   Row get rowSpread => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Row get rowSpreadEvenly => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceAround);
   Row get rowCentered => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
   Row get rowEnd => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
   Row get rowMin => Row(children: toList(), mainAxisSize: MainAxisSize.min);
   Row get rowMax => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
   Column get column => Column(children: toList());
   Column get columnSpread => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Column get columnSpreadEvenly => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceAround);
   Column get columnCentered => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
   Column get columnEnd => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
   Column get columnMin => Column(children: toList(), mainAxisSize: MainAxisSize.min);
