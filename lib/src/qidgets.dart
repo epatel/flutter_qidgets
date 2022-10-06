@@ -290,6 +290,21 @@ extension QuickIcons on IconData {
     return this;
   }
 
+  IconData get yellow {
+    _iconColor = Colors.yellow;
+    return this;
+  }
+
+  IconData get purple {
+    _iconColor = Colors.purple;
+    return this;
+  }
+
+  IconData get cyan {
+    _iconColor = Colors.cyan;
+    return this;
+  }
+
   IconData get orange {
     _iconColor = Colors.orange;
     return this;
@@ -297,11 +312,6 @@ extension QuickIcons on IconData {
 
   IconData get pink {
     _iconColor = Colors.pink;
-    return this;
-  }
-
-  IconData get purple {
-    _iconColor = Colors.purple;
     return this;
   }
 
