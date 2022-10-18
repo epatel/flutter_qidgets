@@ -459,3 +459,8 @@ extension Retries on Function {
     }
   }
 }
+
+extension QuickColor on Color {
+  Color darken(double factor) => Color.lerp(this, Colors.black, factor) ?? Colors.black;
+  Color brighten(double factor) => Color.lerp(this, Colors.white, factor) ?? Colors.white;
+}
