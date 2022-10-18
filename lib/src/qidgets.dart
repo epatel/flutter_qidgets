@@ -21,6 +21,9 @@ var _iconLargeSizeValue = 32.0;
 // Text color
 Color _customTextColor = Colors.orange;
 
+// Mono font family
+var _monoFontFamily = 'Courier';
+
 void setQidgetsValues({
   double? extrasSmallPaddingValue,
   double? smallPaddingValue,
@@ -32,6 +35,7 @@ void setQidgetsValues({
   double? iconMediumSizeValue,
   double? iconLargeSizeValue,
   Color? customTextColor,
+  String? monoFontFamily,
 }) {
   _extrasSmallPaddingValue = extrasSmallPaddingValue ?? _extrasSmallPaddingValue;
   _smallPaddingValue = smallPaddingValue ?? _smallPaddingValue;
@@ -43,6 +47,7 @@ void setQidgetsValues({
   _iconMediumSizeValue = iconMediumSizeValue ?? _iconMediumSizeValue;
   _iconLargeSizeValue = iconLargeSizeValue ?? _iconLargeSizeValue;
   _customTextColor = customTextColor ?? _customTextColor;
+  _monoFontFamily = monoFontFamily ?? _monoFontFamily;
 }
 
 extension _Theme on BuildContext {
@@ -60,6 +65,20 @@ extension QuickPaddingWidgets on Widget {
   Widget get mediumPadding => Padding(padding: EdgeInsets.all(_mediumPaddingValue), child: this);
   Widget get largePadding => Padding(padding: EdgeInsets.all(_largePaddingValue), child: this);
   Widget get extraLargePadding => Padding(padding: EdgeInsets.all(_extraLargePaddingValue), child: this);
+  Widget get extraSmallVPadding =>
+      Padding(padding: EdgeInsets.symmetric(vertical: _extrasSmallPaddingValue), child: this);
+  Widget get smallVPadding => Padding(padding: EdgeInsets.symmetric(vertical: _smallPaddingValue), child: this);
+  Widget get mediumVPadding => Padding(padding: EdgeInsets.symmetric(vertical: _mediumPaddingValue), child: this);
+  Widget get largeVPadding => Padding(padding: EdgeInsets.symmetric(vertical: _largePaddingValue), child: this);
+  Widget get extraLargeVPadding =>
+      Padding(padding: EdgeInsets.symmetric(vertical: _extraLargePaddingValue), child: this);
+  Widget get extraSmallHPadding =>
+      Padding(padding: EdgeInsets.symmetric(horizontal: _extrasSmallPaddingValue), child: this);
+  Widget get smallHPadding => Padding(padding: EdgeInsets.symmetric(horizontal: _smallPaddingValue), child: this);
+  Widget get mediumHPadding => Padding(padding: EdgeInsets.symmetric(horizontal: _mediumPaddingValue), child: this);
+  Widget get largeHPadding => Padding(padding: EdgeInsets.symmetric(horizontal: _largePaddingValue), child: this);
+  Widget get extraLargeHPadding =>
+      Padding(padding: EdgeInsets.symmetric(horizontal: _extraLargePaddingValue), child: this);
   Widget get wide => SizedBox(width: double.infinity, child: this);
   Widget get tall => SizedBox(height: double.infinity, child: this);
   Widget get width25 => FractionallySizedBox(widthFactor: 0.25, child: this);
@@ -166,10 +185,12 @@ extension QuickContainerWidgets on Widget {
   Widget get green => Container(color: Colors.green, child: this);
   Widget get blue => Container(color: Colors.blue, child: this);
   Widget get lightBlue => Container(color: Colors.lightBlue, child: this);
-  Widget get pink => Container(color: Colors.pink, child: this);
+  Widget get yellow => Container(color: Colors.yellow, child: this);
   Widget get purple => Container(color: Colors.purple, child: this);
   Widget get deepPurple => Container(color: Colors.deepPurple, child: this);
-  Widget get yellow => Container(color: Colors.yellow, child: this);
+  Widget get cyan => Container(color: Colors.cyan, child: this);
+  Widget get orange => Container(color: Colors.orange, child: this);
+  Widget get pink => Container(color: Colors.pink, child: this);
   Widget get amber => Container(color: Colors.amber, child: this);
   Widget get grey => Container(color: Colors.grey, child: this);
   Widget get white => Container(color: Colors.white, child: this);
@@ -188,7 +209,8 @@ extension QuickContainerWidgets on Widget {
   Widget get smallRoundedCorners => ClipRRect(borderRadius: BorderRadius.circular(_smallPaddingValue), child: this);
   Widget get mediumRoundedCorners => ClipRRect(borderRadius: BorderRadius.circular(_mediumPaddingValue), child: this);
   Widget get largeRoundedCorners => ClipRRect(borderRadius: BorderRadius.circular(_largePaddingValue), child: this);
-  Widget get circle => ClipOval(child: this);
+  Widget width(double width) => SizedBox(width: width, child: this);
+  Widget height(double height) => SizedBox(height: height, child: this);
   Widget get square => AspectRatio(aspectRatio: 1.0, child: this);
   Widget get goldenRatioLandscape => AspectRatio(aspectRatio: 1.618, child: this);
   Widget get goldenRatioPortrait => AspectRatio(aspectRatio: 0.618, child: this);
@@ -335,12 +357,12 @@ extension QuickTextWidgets on String {
   Widget get wText150 => Text(this, textScaleFactor: 1.5);
   Widget get wText200 => Text(this, textScaleFactor: 2.0);
 
-  Widget get wText50Mono => Text(this, textScaleFactor: 0.5, style: TextStyle(fontFamily: 'Courier'));
-  Widget get wText75Mono => Text(this, textScaleFactor: 0.75, style: TextStyle(fontFamily: 'Courier'));
-  Widget get wTextMono => Text(this, style: TextStyle(fontFamily: 'Courier'));
-  Widget get wText125Mono => Text(this, textScaleFactor: 1.25, style: TextStyle(fontFamily: 'Courier'));
-  Widget get wText150Mono => Text(this, textScaleFactor: 1.5, style: TextStyle(fontFamily: 'Courier'));
-  Widget get wText200Mono => Text(this, textScaleFactor: 2.0, style: TextStyle(fontFamily: 'Courier'));
+  Widget get wText50Mono => Text(this, textScaleFactor: 0.5, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText75Mono => Text(this, textScaleFactor: 0.75, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wTextMono => Text(this, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText125Mono => Text(this, textScaleFactor: 1.25, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText150Mono => Text(this, textScaleFactor: 1.5, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText200Mono => Text(this, textScaleFactor: 2.0, style: TextStyle(fontFamily: _monoFontFamily));
 
   Text wHeadline1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline1, maxLines: maxLines);
   Text wHeadline2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline2, maxLines: maxLines);
