@@ -211,6 +211,7 @@ extension QuickContainerWidgets on Widget {
   Widget get largeRoundedCorners => ClipRRect(borderRadius: BorderRadius.circular(_largePaddingValue), child: this);
   Widget width(double width) => SizedBox(width: width, child: this);
   Widget height(double height) => SizedBox(height: height, child: this);
+  Widget sized({required double width, required double height}) => SizedBox(width: width, height: height, child: this);
   Widget get square => AspectRatio(aspectRatio: 1.0, child: this);
   Widget get goldenRatioLandscape => AspectRatio(aspectRatio: 1.618, child: this);
   Widget get goldenRatioPortrait => AspectRatio(aspectRatio: 0.618, child: this);
