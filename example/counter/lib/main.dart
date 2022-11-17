@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qidgets/qidgets.dart';
+import 'package:qidgets/flutter_qidgets.dart';
 
 void main() {
   runApp(const MyApp());

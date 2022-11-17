@@ -29,7 +29,7 @@ Center(
 Add to `pubspec.yaml`
 
 ```
-  qidgets:
+  flutter_qidgets:
     git: https://github.com/epatel/flutter_qidgets.git
 ```
 
@@ -41,7 +41,6 @@ Use `setQidgetsValues(…)` to set values for paddings and color on the colored 
 
 There are also extensions on `List<Widget>` to be quick-wrapped with `Row` and `Column`.
 
-Take a look in `lib/src/qidgets.dart` for the what's and how's.
+Take a look in `lib/src/flutter_qidgets.dart` for the what's and how's.
 
 ## Additional information
-

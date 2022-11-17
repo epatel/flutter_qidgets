@@ -102,7 +102,11 @@ extension QuickWidgets on Widget {
   Widget get rotatedCW90 => Transform.rotate(angle: pi / 2, child: this);
   Widget get rotatedCCW90 => Transform.rotate(angle: -pi / 2, child: this);
   Widget get rotated180 => Transform.rotate(angle: pi, child: this);
-  Widget scale(double factor) => Transform(transform: Matrix4.diagonal3Values(factor, factor, factor), child: this);
+  Widget scale(double factor, {AlignmentGeometry alignment = Alignment.center}) => Transform(
+        transform: Matrix4.diagonal3Values(factor, factor, factor),
+        alignment: alignment,
+        child: this,
+      );
   Widget future(Future future) => FutureBuilder(
       future: future,
       builder: (context, snapshot) => snapshot.connectionState == ConnectionState.done ? this : Container());
