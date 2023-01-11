@@ -3,6 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+// Default Text
+double _defaultTextScaleFactor = 1.0;
+
 // Padding
 var _extrasSmallPaddingValue = 4.0;
 var _smallPaddingValue = 6.0;
@@ -36,6 +39,7 @@ void setQidgetsValues({
   double? iconLargeSizeValue,
   Color? customTextColor,
   String? monoFontFamily,
+  double? defaultTextScaleFactor,
 }) {
   _extrasSmallPaddingValue = extrasSmallPaddingValue ?? _extrasSmallPaddingValue;
   _smallPaddingValue = smallPaddingValue ?? _smallPaddingValue;
@@ -48,6 +52,7 @@ void setQidgetsValues({
   _iconLargeSizeValue = iconLargeSizeValue ?? _iconLargeSizeValue;
   _customTextColor = customTextColor ?? _customTextColor;
   _monoFontFamily = monoFontFamily ?? _monoFontFamily;
+  _defaultTextScaleFactor = defaultTextScaleFactor ?? _defaultTextScaleFactor;
 }
 
 extension _Theme on BuildContext {
@@ -356,72 +361,88 @@ extension QuickIcons on IconData {
 
 extension QuickTextWidgets on String {
   /// Wrap a string with a Text widget
-  Widget get wText50 => Text(this, textScaleFactor: 0.5);
-  Widget get wText75 => Text(this, textScaleFactor: 0.75);
-  Widget get wText => Text(this);
-  Widget get wText125 => Text(this, textScaleFactor: 1.25);
-  Widget get wText150 => Text(this, textScaleFactor: 1.5);
-  Widget get wText200 => Text(this, textScaleFactor: 2.0);
+  Widget get wText50 => Text(this, textScaleFactor: 0.5 * _defaultTextScaleFactor);
+  Widget get wText75 => Text(this, textScaleFactor: 0.75 * _defaultTextScaleFactor);
+  Widget get wText => Text(this, textScaleFactor: _defaultTextScaleFactor);
+  Widget get wText125 => Text(this, textScaleFactor: 1.25 * _defaultTextScaleFactor);
+  Widget get wText150 => Text(this, textScaleFactor: 1.5 * _defaultTextScaleFactor);
+  Widget get wText200 => Text(this, textScaleFactor: 2.0 * _defaultTextScaleFactor);
 
-  Widget get wText50Mono => Text(this, textScaleFactor: 0.5, style: TextStyle(fontFamily: _monoFontFamily));
-  Widget get wText75Mono => Text(this, textScaleFactor: 0.75, style: TextStyle(fontFamily: _monoFontFamily));
-  Widget get wTextMono => Text(this, style: TextStyle(fontFamily: _monoFontFamily));
-  Widget get wText125Mono => Text(this, textScaleFactor: 1.25, style: TextStyle(fontFamily: _monoFontFamily));
-  Widget get wText150Mono => Text(this, textScaleFactor: 1.5, style: TextStyle(fontFamily: _monoFontFamily));
-  Widget get wText200Mono => Text(this, textScaleFactor: 2.0, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText50Mono =>
+      Text(this, textScaleFactor: 0.5 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText75Mono =>
+      Text(this, textScaleFactor: 0.75 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wTextMono =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText125Mono =>
+      Text(this, textScaleFactor: 1.25 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText150Mono =>
+      Text(this, textScaleFactor: 1.5 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+  Widget get wText200Mono =>
+      Text(this, textScaleFactor: 2.0 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
 
-  Text wHeadline1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline1, maxLines: maxLines);
-  Text wHeadline2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline2, maxLines: maxLines);
-  Text wHeadline3(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline3, maxLines: maxLines);
-  Text wHeadline4(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline4, maxLines: maxLines);
-  Text wHeadline5(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline5, maxLines: maxLines);
-  Text wHeadline6(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.headline6, maxLines: maxLines);
-  Text wSubtitle1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.subtitle1, maxLines: maxLines);
-  Text wSubtitle2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.subtitle2, maxLines: maxLines);
-  Text wBodyText1(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.bodyText1, maxLines: maxLines);
-  Text wBodyText2(BuildContext context, {int? maxLines}) => Text(this, style: context.tt.bodyText2, maxLines: maxLines);
+  Text wHeadline1(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline1, maxLines: maxLines);
+  Text wHeadline2(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline2, maxLines: maxLines);
+  Text wHeadline3(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline3, maxLines: maxLines);
+  Text wHeadline4(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline4, maxLines: maxLines);
+  Text wHeadline5(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline5, maxLines: maxLines);
+  Text wHeadline6(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline6, maxLines: maxLines);
+  Text wSubtitle1(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle1, maxLines: maxLines);
+  Text wSubtitle2(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle2, maxLines: maxLines);
+  Text wBodyText1(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText1, maxLines: maxLines);
+  Text wBodyText2(BuildContext context, {int? maxLines}) =>
+      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText2, maxLines: maxLines);
 
-  Text wHeadline1Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline1!.cc(context.pc), maxLines: maxLines);
-  Text wHeadline2Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline2!.cc(context.pc), maxLines: maxLines);
-  Text wHeadline3Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline3!.cc(context.pc), maxLines: maxLines);
-  Text wHeadline4Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline4!.cc(context.pc), maxLines: maxLines);
-  Text wHeadline5Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline5!.cc(context.pc), maxLines: maxLines);
-  Text wHeadline6Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline6!.cc(context.pc), maxLines: maxLines);
-  Text wSubtitle1Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.subtitle1!.cc(context.pc), maxLines: maxLines);
-  Text wSubtitle2Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.subtitle2!.cc(context.pc), maxLines: maxLines);
-  Text wBodyText1Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.bodyText1!.cc(context.pc), maxLines: maxLines);
-  Text wBodyText2Primary(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.bodyText2!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline1Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline1!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline2Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline2!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline3Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline3!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline4Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline4!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline5Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline5!.cc(context.pc), maxLines: maxLines);
+  Text wHeadline6Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline6!.cc(context.pc), maxLines: maxLines);
+  Text wSubtitle1Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle1!.cc(context.pc), maxLines: maxLines);
+  Text wSubtitle2Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle2!.cc(context.pc), maxLines: maxLines);
+  Text wBodyText1Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText1!.cc(context.pc), maxLines: maxLines);
+  Text wBodyText2Primary(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText2!.cc(context.pc), maxLines: maxLines);
 
-  Text wHeadline1Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline1!.cc(_customTextColor), maxLines: maxLines);
-  Text wHeadline2Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline2!.cc(_customTextColor), maxLines: maxLines);
-  Text wHeadline3Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline3!.cc(_customTextColor), maxLines: maxLines);
-  Text wHeadline4Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline4!.cc(_customTextColor), maxLines: maxLines);
-  Text wHeadline5Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline5!.cc(_customTextColor), maxLines: maxLines);
-  Text wHeadline6Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.headline6!.cc(_customTextColor), maxLines: maxLines);
-  Text wSubtitle1Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.subtitle1!.cc(_customTextColor), maxLines: maxLines);
-  Text wSubtitle2Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.subtitle2!.cc(_customTextColor), maxLines: maxLines);
-  Text wBodyText1Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.bodyText1!.cc(_customTextColor), maxLines: maxLines);
-  Text wBodyText2Custom(BuildContext context, {int? maxLines}) =>
-      Text(this, style: context.tt.bodyText2!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline1Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline1!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline2Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline2!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline3Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline3!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline4Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline4!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline5Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline5!.cc(_customTextColor), maxLines: maxLines);
+  Text wHeadline6Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headline6!.cc(_customTextColor), maxLines: maxLines);
+  Text wSubtitle1Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle1!.cc(_customTextColor), maxLines: maxLines);
+  Text wSubtitle2Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.subtitle2!.cc(_customTextColor), maxLines: maxLines);
+  Text wBodyText1Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText1!.cc(_customTextColor), maxLines: maxLines);
+  Text wBodyText2Custom(BuildContext context, {int? maxLines}) => Text(this,
+      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyText2!.cc(_customTextColor), maxLines: maxLines);
 }
 
 Widget quickSmallFiller() => SizedBox(width: _smallPaddingValue, height: _smallPaddingValue);
