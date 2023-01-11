@@ -55,6 +55,33 @@ void setQidgetsValues({
   _defaultTextScaleFactor = defaultTextScaleFactor ?? _defaultTextScaleFactor;
 }
 
+double qidgetsDoubleValue(String key) {
+  switch (key) {
+    case 'extrasSmallPaddingValue':
+      return _extrasSmallPaddingValue;
+    case 'smallPaddingValue':
+      return _smallPaddingValue;
+    case 'mediumPaddingValue':
+      return _mediumPaddingValue;
+    case 'largePaddingValue':
+      return _largePaddingValue;
+    case 'extraLargePaddingValue':
+      return _extraLargePaddingValue;
+    case 'cardElevationValue':
+      return _cardElevationValue;
+    case 'iconSmallSizeValue':
+      return _iconSmallSizeValue;
+    case 'iconMediumSizeValue':
+      return _iconMediumSizeValue;
+    case 'iconLargeSizeValue':
+      return _iconLargeSizeValue;
+    case 'defaultTextScaleFactor':
+      return _defaultTextScaleFactor;
+    default:
+      throw Exception('Unknown key: $key');
+  }
+}
+
 extension _Theme on BuildContext {
   TextTheme get tt => Theme.of(this).textTheme;
   Color get pc => Theme.of(this).primaryColor;
