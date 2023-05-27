@@ -183,7 +183,8 @@ extension QuickWidgetList on List<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowEnd : columnEnd);
   Widget get rowColumnMin => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
-  Stack get stack => Stack(children: this);
+  Widget get wrap => Wrap(children: this);
+  Widget get stack => Stack(children: this);
 }
 
 extension QuickWidgetIterable on Iterable<Widget> {
@@ -213,7 +214,8 @@ extension QuickWidgetIterable on Iterable<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowEnd : columnEnd);
   Widget get rowColumnMin => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
-  Stack get stack => Stack(children: toList());
+  Widget get wrap => Wrap(children: toList());
+  Widget get stack => Stack(children: toList());
 }
 
 extension QuickContainerWidgets on Widget {
