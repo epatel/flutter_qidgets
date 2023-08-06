@@ -190,14 +190,14 @@ extension QuickWidgetList on List<Widget> {
 extension QuickWidgetIterable on Iterable<Widget> {
   Row get row => Row(children: toList());
   Row get rowSpread => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Row get rowSpreadEvenly => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceAround);
+  Row get rowSpreadEvenly => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceEvenly);
   Row get rowCentered => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
   Row get rowEnd => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
   Row get rowMin => Row(children: toList(), mainAxisSize: MainAxisSize.min);
   Row get rowMax => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
   Column get column => Column(children: toList());
   Column get columnSpread => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Column get columnSpreadEvenly => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceAround);
+  Column get columnSpreadEvenly => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceEvenly);
   Column get columnCentered => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
   Column get columnEnd => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
   Column get columnMin => Column(children: toList(), mainAxisSize: MainAxisSize.min);
@@ -220,9 +220,12 @@ extension QuickWidgetIterable on Iterable<Widget> {
 
 extension QuickContainerWidgets on Widget {
   Widget get red => Container(color: Colors.red, child: this);
+  Widget get lightGreen => Container(color: Colors.lightGreen, child: this);
   Widget get green => Container(color: Colors.green, child: this);
+  Widget get darkGreen => Container(color: Colors.green.darken(0.5), child: this);
   Widget get blue => Container(color: Colors.blue, child: this);
   Widget get lightBlue => Container(color: Colors.lightBlue, child: this);
+  Widget get darkBlue => Container(color: Colors.blue.darken(0.5), child: this);
   Widget get yellow => Container(color: Colors.yellow, child: this);
   Widget get purple => Container(color: Colors.purple, child: this);
   Widget get deepPurple => Container(color: Colors.deepPurple, child: this);
@@ -284,7 +287,7 @@ extension QuickTextStyles on TextStyle {
 
 extension QuickBuildContext on BuildContext {
   Color get primaryColor => Theme.of(this).primaryColor;
-  Color get backgroundColor => Theme.of(this).backgroundColor;
+  Color get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
   Brightness get brightness => Theme.of(this).brightness;
   bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
 }
@@ -337,8 +340,23 @@ extension QuickIcons on IconData {
     return this;
   }
 
+  IconData get lightGreen {
+    _iconColor = Colors.lightGreen;
+    return this;
+  }
+
   IconData get green {
     _iconColor = Colors.green;
+    return this;
+  }
+
+  IconData get darkGreen {
+    _iconColor = Colors.green.darken(0.5);
+    return this;
+  }
+
+  IconData get lightblue {
+    _iconColor = Colors.lightBlue;
     return this;
   }
 
@@ -347,8 +365,8 @@ extension QuickIcons on IconData {
     return this;
   }
 
-  IconData get lightblue {
-    _iconColor = Colors.lightBlue[200];
+  IconData get darkBlue {
+    _iconColor = Colors.blue.darken(0.5);
     return this;
   }
 
