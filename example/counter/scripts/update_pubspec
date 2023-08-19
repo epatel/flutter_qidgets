@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# Update flutter_qidgets reference in pubspec.yaml
+#
+GH_REF=`curl -s https://raw.githubusercontent.com/epatel/flutter_qidgets/main/README.md | grep "ref:" | sed 's/^.* //'`
+sed -i "" -E "s/ref:.*$/ref: $GH_REF/" pubspec.yaml

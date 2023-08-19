@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# Update .PHONY in Makefile
+#
+PHONY=`grep '^[^\\.[space]]*.*:$' Makefile | sed 's/://' | xargs echo .PHONY:`
+sed -i "" -e "s/.PHONY:.*$/$PHONY/" Makefile
