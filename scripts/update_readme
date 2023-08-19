@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# Update flutter_qidgets reference in README.md
+#
+SHA=`git rev-parse HEAD`
+sed -i "" -E "s/ref:.*$/ref: $SHA/" README.md
