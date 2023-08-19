@@ -325,6 +325,11 @@ Icon _iconWithColor(IconData data, double? size) {
 }
 
 extension QuickIcons on IconData {
+  IconData color(Color color) {
+    _iconColor = color;
+    return this;
+  }
+
   IconData get white {
     _iconColor = Colors.white;
     return this;
