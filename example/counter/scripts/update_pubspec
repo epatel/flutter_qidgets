@@ -4,4 +4,4 @@
 # Update flutter_qidgets reference in pubspec.yaml
 #
 GH_REF=`curl -s https://raw.githubusercontent.com/epatel/flutter_qidgets/main/README.md | grep "ref:" | sed 's/^.* //'`
-sed -i "" -E "s/ref:.*$/ref: $GH_REF/" pubspec.yaml
+awk "/flutter_qidgets/{l=1}/ref:/{if(l==1){l=2;print\"      ref: $GH_REF\"}}{if(l<2)print\$0}/^[^   ]/{l=0}" pubspec.yaml > pubspec.tmp && mv pubspec.tmp pubspec.yaml
