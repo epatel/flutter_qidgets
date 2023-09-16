@@ -31,7 +31,7 @@ Add to `pubspec.yaml`
 ```
   flutter_qidgets:
     git:
-      ref: 7909957aee3473375186dc488fac3d2d24770ca5
+      ref: a49d9b8ed335ad1db23fecab3cc596058afd7d28
       url: https://github.com/epatel/flutter_qidgets.git
 ```
 
@@ -39,7 +39,7 @@ Add to `pubspec.yaml`
 
 Quick-wrap widgets in other widgets with dot extensions, ie `.red` will wrap any widget in a `Container` with `color:` set to `Colors.red`.
 
-Use `setQidgetsValues(…)` to set values for paddings and color on the colored text extensions, ie `.wHeadline4Custom()`.
+Use `setQidgetsValues(…)` to set values for paddings and color on the colored text extensions, ie `.wLabelLargeCustom()`.
 
 There are also extensions on `List<Widget>` to be quick-wrapped with `Row` and `Column`.
 
