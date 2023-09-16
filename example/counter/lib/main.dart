@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qidgets/flutter_qidgets.dart';
+import 'package:flutter_qidgets/flutter_qidgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: [
         'You have pushed the button this many times:'.wText,
-        '$_counter'.wHeadline4(context),
+        '$_counter'.wLabelLarge(context),
       ].columnCentered.center,
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
