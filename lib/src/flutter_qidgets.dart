@@ -160,22 +160,22 @@ extension QuickState on State<dynamic> {
 
 extension QuickWidgetList on List<Widget> {
   Row get row => Row(children: this);
-  Row get rowSpread => Row(children: this, mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Row get rowCentered => Row(children: this, mainAxisAlignment: MainAxisAlignment.center);
-  Row get rowEnd => Row(children: this, mainAxisAlignment: MainAxisAlignment.end);
-  Row get rowMin => Row(children: this, mainAxisSize: MainAxisSize.min);
-  Row get rowMax => Row(children: this, mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Row get rowSpread => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: this);
+  Row get rowCentered => Row(mainAxisAlignment: MainAxisAlignment.center, children: this);
+  Row get rowEnd => Row(mainAxisAlignment: MainAxisAlignment.end, children: this);
+  Row get rowMin => Row(mainAxisSize: MainAxisSize.min, children: this);
+  Row get rowMax => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: this);
   Column get column => Column(children: this);
-  Column get columnSpread => Column(children: this, mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Column get columnCentered => Column(children: this, mainAxisAlignment: MainAxisAlignment.center);
-  Column get columnEnd => Column(children: this, mainAxisAlignment: MainAxisAlignment.end);
-  Column get columnMin => Column(children: this, mainAxisSize: MainAxisSize.min);
+  Column get columnSpread => Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: this);
+  Column get columnCentered => Column(mainAxisAlignment: MainAxisAlignment.center, children: this);
+  Column get columnEnd => Column(mainAxisAlignment: MainAxisAlignment.end, children: this);
+  Column get columnMin => Column(mainAxisSize: MainAxisSize.min, children: this);
   ListView get listView => ListView(children: this);
   GridView grid(int columns, double aspectRatio) =>
       GridView.count(crossAxisCount: columns, childAspectRatio: aspectRatio, children: this);
   Widget get rowColumn => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape)
-          ? Row(children: this, crossAxisAlignment: CrossAxisAlignment.start)
+          ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: this)
           : column);
   Widget get rowColumnCentered => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowCentered : columnCentered);
@@ -189,24 +189,24 @@ extension QuickWidgetList on List<Widget> {
 
 extension QuickWidgetIterable on Iterable<Widget> {
   Row get row => Row(children: toList());
-  Row get rowSpread => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Row get rowSpreadEvenly => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceEvenly);
-  Row get rowCentered => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
-  Row get rowEnd => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
-  Row get rowMin => Row(children: toList(), mainAxisSize: MainAxisSize.min);
-  Row get rowMax => Row(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
+  Row get rowSpread => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: toList());
+  Row get rowSpreadEvenly => Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: toList());
+  Row get rowCentered => Row(mainAxisAlignment: MainAxisAlignment.center, children: toList());
+  Row get rowEnd => Row(mainAxisAlignment: MainAxisAlignment.end, children: toList());
+  Row get rowMin => Row(mainAxisSize: MainAxisSize.min, children: toList());
+  Row get rowMax => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: toList());
   Column get column => Column(children: toList());
-  Column get columnSpread => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceBetween);
-  Column get columnSpreadEvenly => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.spaceEvenly);
-  Column get columnCentered => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.center);
-  Column get columnEnd => Column(children: toList(), mainAxisAlignment: MainAxisAlignment.end);
-  Column get columnMin => Column(children: toList(), mainAxisSize: MainAxisSize.min);
+  Column get columnSpread => Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: toList());
+  Column get columnSpreadEvenly => Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: toList());
+  Column get columnCentered => Column(mainAxisAlignment: MainAxisAlignment.center, children: toList());
+  Column get columnEnd => Column(mainAxisAlignment: MainAxisAlignment.end, children: toList());
+  Column get columnMin => Column(mainAxisSize: MainAxisSize.min, children: toList());
   ListView get listView => ListView(children: toList());
   GridView grid(int columns, double aspectRatio) =>
       GridView.count(crossAxisCount: columns, childAspectRatio: aspectRatio, children: toList());
   Widget get rowColumn => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape)
-          ? Row(children: toList(), crossAxisAlignment: CrossAxisAlignment.start)
+          ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: toList())
           : column);
   Widget get rowColumnCentered => OrientationBuilder(
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowCentered : columnCentered);
@@ -293,15 +293,15 @@ extension QuickBuildContext on BuildContext {
 }
 
 extension QuickButtons on Widget {
-  Widget onTap(Function() onTap) => Material(child: InkWell(child: this, onTap: onTap), color: Colors.transparent);
+  Widget onTap(Function() onTap) => Material(color: Colors.transparent, child: InkWell(onTap: onTap, child: this));
   Widget on({void Function()? tap, void Function()? doubleTap, void Function()? longPress}) => Material(
+        color: Colors.transparent,
         child: InkWell(
-          child: this,
           onTap: tap,
           onDoubleTap: doubleTap,
           onLongPress: longPress,
+          child: this,
         ),
-        color: Colors.transparent,
       );
   Widget button(Function() onPressed) => ElevatedButton(
         onPressed: onPressed,
@@ -309,11 +309,11 @@ extension QuickButtons on Widget {
       );
   Widget transparentButton(Function() onPressed) => ElevatedButton(
         onPressed: onPressed,
-        child: this,
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
         ),
+        child: this,
       );
 }
 
