@@ -31,7 +31,7 @@ Add to `pubspec.yaml`
 ```
   flutter_qidgets:
     git:
-      ref: b0317cbad91c54471ec2a489fa4f090e7ee894d7
+      ref: 74123c4f64ce8a606bdd13089ebd31028c4154e3
       url: https://github.com/epatel/flutter_qidgets.git
 ```
 
