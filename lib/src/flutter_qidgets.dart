@@ -145,15 +145,15 @@ extension QuickWidgets on Widget {
 }
 
 extension QuickState on State<dynamic> {
-  void pop(BuildContext context) {
+  void pop() {
     Navigator.pop(context);
   }
 
-  void popTo(BuildContext context, String name) {
+  void popTo(String name) {
     Navigator.popUntil(context, (route) => route.settings.name == name);
   }
 
-  void popToRoot(BuildContext context) {
+  void popToRoot() {
     Navigator.popUntil(context, (route) => route.settings.name == '/');
   }
 }
@@ -216,6 +216,11 @@ extension QuickWidgetIterable on Iterable<Widget> {
       builder: (context, orientation) => (orientation == Orientation.landscape) ? rowMin : columnMin);
   Widget get wrap => Wrap(children: toList());
   Widget get stack => Stack(children: toList());
+  List<Widget> inject(BuildContext context, Widget Function(BuildContext context, int index) builder) =>
+      List.generate(length * 2 - 1, (index) => index.isEven ? elementAt(index ~/ 2) : builder(context, index ~/ 2));
+  List<Widget> injectSmallFillers(BuildContext context) => inject(context, (_, __) => quickSmallFiller());
+  List<Widget> injectMediumFillers(BuildContext context) => inject(context, (_, __) => quickMediumFiller());
+  List<Widget> injectLargeFillers(BuildContext context) => inject(context, (_, __) => quickLargeFiller());
 }
 
 extension QuickContainerWidgets on Widget {
@@ -415,7 +420,7 @@ extension QuickTextWidgets on String {
   /// Wrap a string with a Text widget
   Widget get wText50 => Text(this, textScaleFactor: 0.5 * _defaultTextScaleFactor);
   Widget get wText75 => Text(this, textScaleFactor: 0.75 * _defaultTextScaleFactor);
-  Widget get wText => Text(this, textScaleFactor: _defaultTextScaleFactor);
+  Widget get wText => Text(this, textScaler: TextScaler.linear(_defaultTextScaleFactor));
   Widget get wText125 => Text(this, textScaleFactor: 1.25 * _defaultTextScaleFactor);
   Widget get wText150 => Text(this, textScaleFactor: 1.5 * _defaultTextScaleFactor);
   Widget get wText200 => Text(this, textScaleFactor: 2.0 * _defaultTextScaleFactor);
@@ -425,7 +430,7 @@ extension QuickTextWidgets on String {
   Widget get wText75Mono =>
       Text(this, textScaleFactor: 0.75 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
   Widget get wTextMono =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
+      Text(this, textScaler: TextScaler.linear(_defaultTextScaleFactor), style: TextStyle(fontFamily: _monoFontFamily));
   Widget get wText125Mono =>
       Text(this, textScaleFactor: 1.25 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
   Widget get wText150Mono =>
@@ -433,114 +438,158 @@ extension QuickTextWidgets on String {
   Widget get wText200Mono =>
       Text(this, textScaleFactor: 2.0 * _defaultTextScaleFactor, style: TextStyle(fontFamily: _monoFontFamily));
 
-  Text wDisplayLarge(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.displayLarge, maxLines: maxLines);
-  Text wDisplayMedium(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.displayMedium, maxLines: maxLines);
-  Text wDisplaySmall(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.displaySmall, maxLines: maxLines);
-  Text wHeadlineLarge(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineLarge, maxLines: maxLines);
-  Text wHeadlineMedium(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineMedium, maxLines: maxLines);
-  Text wHeadlineSmall(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineSmall, maxLines: maxLines);
-  Text wTitleLarge(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleLarge, maxLines: maxLines);
-  Text wTitleMedium(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleMedium, maxLines: maxLines);
-  Text wTitleSmall(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleSmall, maxLines: maxLines);
-  Text wBodyLarge(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyLarge, maxLines: maxLines);
-  Text wBodyMedium(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyMedium, maxLines: maxLines);
-  Text wBodySmall(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodySmall, maxLines: maxLines);
-  Text wLabelLarge(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelLarge, maxLines: maxLines);
-  Text wLabelMedium(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelMedium, maxLines: maxLines);
-  Text wLabelSmall(BuildContext context, {int? maxLines}) =>
-      Text(this, textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelSmall, maxLines: maxLines);
+  Text wDisplayLarge(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.displayLarge, maxLines: maxLines);
+  Text wDisplayMedium(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.displayMedium, maxLines: maxLines);
+  Text wDisplaySmall(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.displaySmall, maxLines: maxLines);
+  Text wHeadlineLarge(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.headlineLarge, maxLines: maxLines);
+  Text wHeadlineMedium(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.headlineMedium, maxLines: maxLines);
+  Text wHeadlineSmall(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.headlineSmall, maxLines: maxLines);
+  Text wTitleLarge(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.titleLarge, maxLines: maxLines);
+  Text wTitleMedium(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.titleMedium, maxLines: maxLines);
+  Text wTitleSmall(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.titleSmall, maxLines: maxLines);
+  Text wBodyLarge(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.bodyLarge, maxLines: maxLines);
+  Text wBodyMedium(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.bodyMedium, maxLines: maxLines);
+  Text wBodySmall(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.bodySmall, maxLines: maxLines);
+  Text wLabelLarge(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.labelLarge, maxLines: maxLines);
+  Text wLabelMedium(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.labelMedium, maxLines: maxLines);
+  Text wLabelSmall(BuildContext context, {int? maxLines}) => Text(this,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor), style: context.tt.labelSmall, maxLines: maxLines);
 
   Text wDisplayLargePrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.displayLarge!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.displayLarge!.cc(context.pc),
+      maxLines: maxLines);
   Text wDisplayMediumPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.displayMedium!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.displayMedium!.cc(context.pc),
+      maxLines: maxLines);
   Text wDisplaySmallPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.displaySmall!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.displaySmall!.cc(context.pc),
+      maxLines: maxLines);
   Text wHeadlineLargePrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineLarge!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.headlineLarge!.cc(context.pc),
+      maxLines: maxLines);
   Text wHeadlineMediumPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineMedium!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.headlineMedium!.cc(context.pc),
+      maxLines: maxLines);
   Text wHeadlineSmallPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.headlineSmall!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.headlineSmall!.cc(context.pc),
+      maxLines: maxLines);
   Text wTitleLargePrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleLarge!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.titleLarge!.cc(context.pc),
+      maxLines: maxLines);
   Text wTitleMediumPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleMedium!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.titleMedium!.cc(context.pc),
+      maxLines: maxLines);
   Text wTitleSmallPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleSmall!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.titleSmall!.cc(context.pc),
+      maxLines: maxLines);
   Text wBodyLargePrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyLarge!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodyLarge!.cc(context.pc),
+      maxLines: maxLines);
   Text wBodyMediumPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyMedium!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodyMedium!.cc(context.pc),
+      maxLines: maxLines);
   Text wBodySmallPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodySmall!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodySmall!.cc(context.pc),
+      maxLines: maxLines);
   Text wLabelLargePrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelLarge!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.labelLarge!.cc(context.pc),
+      maxLines: maxLines);
   Text wLabelMediumPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelMedium!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.labelMedium!.cc(context.pc),
+      maxLines: maxLines);
   Text wLabelSmallPrimary(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelSmall!.cc(context.pc), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.labelSmall!.cc(context.pc),
+      maxLines: maxLines);
 
   Text wDisplayLargeCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.displayLarge!.cc(_customTextColor),
       maxLines: maxLines);
   Text wDisplayMediumCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.displayMedium!.cc(_customTextColor),
       maxLines: maxLines);
   Text wDisplaySmallCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.displaySmall!.cc(_customTextColor),
       maxLines: maxLines);
   Text wHeadlineLargeCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.headlineLarge!.cc(_customTextColor),
       maxLines: maxLines);
   Text wHeadlineMediumCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.headlineMedium!.cc(_customTextColor),
       maxLines: maxLines);
   Text wHeadlineSmallCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.headlineSmall!.cc(_customTextColor),
       maxLines: maxLines);
   Text wTitleLargeCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleLarge!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.titleLarge!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wTitleMediumCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.titleMedium!.cc(_customTextColor),
       maxLines: maxLines);
   Text wTitleSmallCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.titleSmall!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.titleSmall!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wBodyLargeCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyLarge!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodyLarge!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wBodyMediumCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodyMedium!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodyMedium!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wBodySmallCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.bodySmall!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.bodySmall!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wLabelLargeCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelLarge!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.labelLarge!.cc(_customTextColor),
+      maxLines: maxLines);
   Text wLabelMediumCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor,
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
       style: context.tt.labelMedium!.cc(_customTextColor),
       maxLines: maxLines);
   Text wLabelSmallCustom(BuildContext context, {int? maxLines}) => Text(this,
-      textScaleFactor: _defaultTextScaleFactor, style: context.tt.labelSmall!.cc(_customTextColor), maxLines: maxLines);
+      textScaler: TextScaler.linear(_defaultTextScaleFactor),
+      style: context.tt.labelSmall!.cc(_customTextColor),
+      maxLines: maxLines);
 }
 
 Widget quickSmallFiller() => SizedBox(width: _smallPaddingValue, height: _smallPaddingValue);
