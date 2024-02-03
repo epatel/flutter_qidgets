@@ -293,7 +293,7 @@ extension QuickBuildContext on BuildContext {
 }
 
 extension QuickButtons on Widget {
-  Widget onTap(Function() onTap) => Material(color: Colors.transparent, child: InkWell(onTap: onTap, child: this));
+  Widget onTap(Function()? onTap) => Material(color: Colors.transparent, child: InkWell(onTap: onTap, child: this));
   Widget on({void Function()? tap, void Function()? doubleTap, void Function()? longPress}) => Material(
         color: Colors.transparent,
         child: InkWell(
@@ -303,11 +303,11 @@ extension QuickButtons on Widget {
           child: this,
         ),
       );
-  Widget button(Function() onPressed) => ElevatedButton(
+  Widget button(Function()? onPressed) => ElevatedButton(
         onPressed: onPressed,
         child: this,
       );
-  Widget transparentButton(Function() onPressed) => ElevatedButton(
+  Widget transparentButton(Function()? onPressed) => ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
